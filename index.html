@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Random Password Generator</title>
+    <title>Password Generator</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
@@ -12,22 +12,89 @@
       referrerpolicy="no-referrer"
     />
     <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
-    <div class="password-container">
-      <h2>Random Password Generator</h2>
-      <div class="input-container">
-        <input
-          type="text"
-          class="input"
-          id="input"
-          placeholder="Create Password"
-          readonly
-        />
-        <i class="fa-regular fa-copy"></i>
+    <main>
+      <div class="password-container">
+        <div>
+          <h2>Password Generator</h2>
+          <p>Generate strong unique passwords</p>
+        </div>
+
+        <!-- Main Password Input Generator -->
+        <div class="input-container">
+          <input
+            type="text"
+            class="input"
+            id="input"
+            value="P4$5W0rDP4$5W0rD18"
+            placeholder="Create Password"
+            readonly
+          />
+
+          <!-- Passwrord Refresh & Copy Password Buttons -->
+          <div class="btn-wrapper">
+            <button class="btn">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+            <button class="btn">
+              <i class="fa-solid fa-arrows-rotate"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- How Strong is the Password -->
+        <div>
+          <p><b>Moderate</b>: Not bad, but not Fort Knox either</p>
+        </div>
+
+        <!-- Slider -->
+        <div class="input-details-wrapper">
+          <p>Password lenght</p>
+          <input
+            type="range"
+            min="1"
+            max="18"
+            class="input-slider"
+            id="slider"
+          />
+          <p><span id="value"></span></p>
+        </div>
+
+        <!-- Other Inputs -->
+        <div class="input-details-wrapper">
+          <div class="input-details">
+            <p>Include Uppercase Letters</p>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="input-details">
+            <p>Include Lowercase Letters</p>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="input-details">
+            <p>Include Numbers</p>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="input-details">
+            <p>Include Symbols</p>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider round"></span>
+            </label>
+          </div>
+        </div>
       </div>
-      <button class="btn">Generate</button>
-    </div>
-    <div class="alert-container"></div>
+      <div class="alert-container active">Password Copied</div>
+    </main>
   </body>
 </html>
