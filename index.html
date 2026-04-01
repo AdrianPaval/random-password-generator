@@ -16,79 +16,95 @@
   </head>
   <body>
     <main>
-      <div class="password-container">
+      <div class="container">
         <div>
-          <h2>Password Generator</h2>
+          <h1>Password Generator</h1>
           <p>Generate strong unique passwords</p>
         </div>
 
-        <!-- Main Password Input Generator -->
-        <div class="input-container">
+        <!-- Password Container -->
+        <div class="password-container">
           <input
             type="text"
             class="input"
-            id="input"
-            value="P4$5W0rDP4$5W0rD18"
-            placeholder="Create Password"
+            id="password"
+            value=""
+            placeholder="Generate Random Password"
             readonly
           />
 
           <!-- Passwrord Refresh & Copy Password Buttons -->
           <div class="btn-wrapper">
-            <button class="btn">
+            <button class="btn" id="copy-btn">
               <i class="fa-regular fa-copy"></i>
             </button>
-            <button class="btn">
+            <button class="btn" id="generate-btn">
               <i class="fa-solid fa-arrows-rotate"></i>
             </button>
           </div>
         </div>
 
-        <!-- How Strong is the Password -->
-        <div>
-          <p><b>Moderate</b>: Not bad, but not Fort Knox either</p>
+        <!-- Password Strength -->
+        <div class="strength-container">
+          <p>
+            Strenght - <span id="strenght-label">Moderate</span>: Not bad, but
+            not Fort Knox either
+          </p>
+          <div class="strength-meter">
+            <div class="strength-bar"></div>
+          </div>
         </div>
 
-        <!-- Slider -->
-        <div class="input-details-wrapper">
-          <p>Password lenght</p>
-          <input
-            type="range"
-            min="1"
-            max="18"
-            class="input-slider"
-            id="slider"
-          />
-          <p><span id="value"></span></p>
-        </div>
+        <!-- Other Input Options  -->
+        <div class="options">
+          <!-- Slider Password Length -->
+          <div class="options">
+            <div>
+              <label for="length">Password lenght: </label>
+              <span id="length-value">12</span>
+            </div>
+            <input
+              type="range"
+              min="6"
+              max="24"
+              value="12"
+              class="input-slider"
+              id="length"
+            />
+          </div>
 
-        <!-- Other Inputs -->
-        <div class="input-details-wrapper">
-          <div class="input-details">
+          <!-- Include Uppercase Letters -->
+          <div class="option">
             <p>Include Uppercase Letters</p>
             <label class="switch">
-              <input type="checkbox" />
+              <input type="checkbox" id="uppercase" />
               <span class="slider round"></span>
             </label>
           </div>
-          <div class="input-details">
+
+          <!-- Include Lowercase Letters -->
+          <div class="option">
             <p>Include Lowercase Letters</p>
             <label class="switch">
-              <input type="checkbox" />
+              <input type="checkbox" id="lowercase" />
               <span class="slider round"></span>
             </label>
           </div>
-          <div class="input-details">
+
+          <!-- Include Numbers -->
+          <div class="option">
             <p>Include Numbers</p>
             <label class="switch">
-              <input type="checkbox" />
+              <input type="checkbox" id="numbers" />
               <span class="slider round"></span>
             </label>
           </div>
-          <div class="input-details">
+
+          <!-- Include Symbols -->
+          <div class="option">
             <p>Include Symbols</p>
             <label class="switch">
-              <input type="checkbox" />
+              <input type="checkbox" id="symbols" />
               <span class="slider round"></span>
             </label>
           </div>
