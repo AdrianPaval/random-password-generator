@@ -51,10 +51,10 @@ function makePassword() {
   );
 
   passwordInput.value = newPassword;
-  updatestrengthMeter(newPassword);
+  updateStrengthMeter(newPassword);
 }
 
-function updatestrengthMeter(password) {
+function updateStrengthMeter(password) {
   const passwordLength = password.length;
   const hasUppercase = /[A-Z]/.test(password);
   const hasLowercase = /[a-z]/.test(password);
@@ -97,9 +97,8 @@ function updatestrengthMeter(password) {
       "🍪 — Easy to crumble.",
       "😴 — Security sleeping.",
     ];
-    const weakRandomPassword =
-      weakPassword[Math.floor(Math.random() * weakPassword.length)];
-    strengthLabelText = weakRandomPassword;
+    const weakRandomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % weakPassword.length;
+    strengthLabelText = weakPassword[weakRandomIndex];
   } else if (strengthScore < 70) {
     // Medium Password
     strengthBgColor = "rgba(255, 174, 0, 0.08)";
@@ -121,9 +120,8 @@ function updatestrengthMeter(password) {
       "🍞 — A bit tougher.",
       "😐 — Security awake.",
     ];
-    const mediumRandomPassword =
-      mediumPassword[Math.floor(Math.random() * mediumPassword.length)];
-    strengthLabelText = mediumRandomPassword;
+    const mediumRandomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % mediumPassword.length;
+    strengthLabelText = mediumPassword[mediumRandomIndex];
   } else {
     // Strong Password
     strengthBgColor = "rgba(179, 255, 0, 0.08)";
@@ -145,9 +143,8 @@ function updatestrengthMeter(password) {
       "🥖 — Hard to break.",
       "😎 — Security on duty.",
     ];
-    const strongRandomPassword =
-      strongPassword[Math.floor(Math.random() * strongPassword.length)];
-    strengthLabelText = strongRandomPassword;
+    const strongRandomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % strongPassword.length;
+    strengthLabelText = strongPassword[strongRandomIndex];
   }
 
   strengthColor.style.backgroundColor = strengthBgColor;
@@ -169,13 +166,38 @@ function createRandomPassword(
   if (includeSymbols) allCharacters += symbolCharacters;
 
   let password = "";
+  const randomValues = new Uint32Array(length);
+  crypto.getRandomValues(randomValues);
 
   for (let i = 0; i < length; i++) {
-    const randomIndex = Math.floor(Math.random() * allCharacters.length);
+    const randomIndex = randomValues[i] % allCharacters.length;
     password += allCharacters[randomIndex];
   }
 
   return password;
 }
 
-// Copy to clipboard
+// Random Password on Window Refresh
+window.addEventListener("DOMContentLoaded", makePassword);
+
+// Copy to Clipboard
+copyButton.addEventListener("click", () => {
+  if (!passwordInput.value) return;
+
+  navigator.clipboard
+    .writeText(passwordInput.value)
+    .then(() => showCopySuccess())
+    .catch((error) => console.log("Could not copy:", error));
+});
+
+function showCopySuccess() {
+  copyButton.classList.remove("far", "fa-copy");
+  copyButton.classList.add("fas", "fa-check");
+  copyButton.style.color = "white";
+
+  setTimeout(() => {
+    copyButton.classList.remove("fas", "fa-check");
+    copyButton.classList.add("far", "fa-copy");
+    copyButton.style.color = "";
+  }, 1500);
+}
