@@ -2,6 +2,8 @@
 
 A web-based tool for generating strong, unique passwords with customizable options.
 
+![alt text](image.png)
+
 ## Features
 
 - **Configurable password length** (6-24 characters)
