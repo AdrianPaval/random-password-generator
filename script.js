@@ -97,7 +97,8 @@ function updateStrengthMeter(password) {
       "🍪 — Easy to crumble.",
       "😴 — Security sleeping.",
     ];
-    const weakRandomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % weakPassword.length;
+    const weakRandomIndex =
+      crypto.getRandomValues(new Uint32Array(1))[0] % weakPassword.length;
     strengthLabelText = weakPassword[weakRandomIndex];
   } else if (strengthScore < 70) {
     // Medium Password
@@ -120,7 +121,8 @@ function updateStrengthMeter(password) {
       "🍞 — A bit tougher.",
       "😐 — Security awake.",
     ];
-    const mediumRandomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % mediumPassword.length;
+    const mediumRandomIndex =
+      crypto.getRandomValues(new Uint32Array(1))[0] % mediumPassword.length;
     strengthLabelText = mediumPassword[mediumRandomIndex];
   } else {
     // Strong Password
@@ -143,7 +145,8 @@ function updateStrengthMeter(password) {
       "🥖 — Hard to break.",
       "😎 — Security on duty.",
     ];
-    const strongRandomIndex = crypto.getRandomValues(new Uint32Array(1))[0] % strongPassword.length;
+    const strongRandomIndex =
+      crypto.getRandomValues(new Uint32Array(1))[0] % strongPassword.length;
     strengthLabelText = strongPassword[strongRandomIndex];
   }
 
@@ -158,20 +161,41 @@ function createRandomPassword(
   includeNumbers,
   includeSymbols,
 ) {
-  let allCharacters = "";
+  const selectedTypes = [];
+  if (includeUppercase) selectedTypes.push(uppercaseLetters);
+  if (includeLowercase) selectedTypes.push(lowercaseLetters);
+  if (includeNumbers) selectedTypes.push(numberCharacters);
+  if (includeSymbols) selectedTypes.push(symbolCharacters);
 
-  if (includeUppercase) allCharacters += uppercaseLetters;
-  if (includeLowercase) allCharacters += lowercaseLetters;
-  if (includeNumbers) allCharacters += numberCharacters;
-  if (includeSymbols) allCharacters += symbolCharacters;
-
-  let password = "";
+  const allCharacters = selectedTypes.join("");
   const randomValues = new Uint32Array(length);
   crypto.getRandomValues(randomValues);
+
+  let password = "";
 
   for (let i = 0; i < length; i++) {
     const randomIndex = randomValues[i] % allCharacters.length;
     password += allCharacters[randomIndex];
+  }
+
+  if (selectedTypes.length > 0 && length >= selectedTypes.length) {
+    const randomValues2 = new Uint32Array(selectedTypes.length);
+    crypto.getRandomValues(randomValues2);
+
+    const guaranteedChars = [];
+    for (let i = 0; i < selectedTypes.length; i++) {
+      const charSet = selectedTypes[i];
+      const charIndex = randomValues2[i] % charSet.length;
+      guaranteedChars.push(charSet[charIndex]);
+    }
+
+    const passwordArray = password.split("");
+    for (let i = 0; i < guaranteedChars.length; i++) {
+      const pos =
+        crypto.getRandomValues(new Uint32Array(1))[0] % passwordArray.length;
+      passwordArray[pos] = guaranteedChars[i];
+    }
+    password = passwordArray.join("");
   }
 
   return password;
