@@ -1,4 +1,4 @@
-// DOM Elements - all the elements we need from HTML
+// DOM Elements
 const passwordInput = document.getElementById("password");
 const lengthSlider = document.getElementById("length");
 const lengthDisplay = document.getElementById("length-value");
@@ -8,8 +8,9 @@ const numbersCheckbox = document.getElementById("numbers");
 const symbolsCheckbox = document.getElementById("symbols");
 const generateButton = document.getElementById("generate-btn");
 const copyButton = document.getElementById("copy-btn");
-const strengthBar = document.querySelector(".strength-bar");
 const strengthText = document.querySelector(".strength-container p");
+const strengthLabel = document.getElementById("strength-label");
+const strengthColor = document.querySelector(".password-container");
 
 // Character sets
 const uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -23,6 +24,7 @@ lengthSlider.addEventListener("input", () => {
 
 generateButton.addEventListener("click", makePassword);
 
+// Random Password Generator
 function makePassword() {
   const length = Number(lengthSlider.value);
   const includeUppercase = uppercaseCheckbox.checked;
@@ -49,6 +51,107 @@ function makePassword() {
   );
 
   passwordInput.value = newPassword;
+  updatestrengthMeter(newPassword);
+}
+
+function updatestrengthMeter(password) {
+  const passwordLength = password.length;
+  const hasUppercase = /[A-Z]/.test(password);
+  const hasLowercase = /[a-z]/.test(password);
+  const hasNumbers = /[0-9]/.test(password);
+  const hasSymbols = /[!@#$%^&*()-_=+[\]{}|;:,.<>?]/.test(password);
+
+  let strengthScore = 0;
+  strengthScore += Math.min(passwordLength * 2, 40);
+  if (hasUppercase) strengthScore += 15;
+  if (hasLowercase) strengthScore += 15;
+  if (hasNumbers) strengthScore += 15;
+  if (hasSymbols) strengthScore += 15;
+
+  // Enforce minimum score for short password
+  if (passwordLength < 8) {
+    strengthScore = Math.min(strengthScore, 40);
+  }
+
+  let strengthLabelText = "";
+  let strengthBgColor = "";
+
+  if (strengthScore < 40) {
+    // Weak Password
+    strengthBgColor = "rgba(255, 0, 0, 0.08)";
+    const weakPassword = [
+      "😬 — Even my grandma could guess this.",
+      "😬 — That's barely a password.",
+      "🧻 — Paper-thin security.",
+      "🐣 — Easily cracked.",
+      "😅 — Hackers say thank you.",
+      "🚪 — Door wide open.",
+      "😬 — Hackers love this one.",
+      "🧠 — Zero brain required to guess.",
+      "🪶 — Light as a feather.",
+      "😅 — Try harder…",
+      "🚨 — Security risk detected.",
+      "🐌 — Slow security.",
+      "🪟 — Wide open window.",
+      "🎯 — Easy target.",
+      "🍪 — Easy to crumble.",
+      "😴 — Security sleeping.",
+    ];
+    const weakRandomPassword =
+      weakPassword[Math.floor(Math.random() * weakPassword.length)];
+    strengthLabelText = weakRandomPassword;
+  } else if (strengthScore < 70) {
+    // Medium Password
+    strengthBgColor = "rgba(255, 174, 0, 0.08)";
+    const mediumPassword = [
+      "😏 — Better… but still snackable.",
+      "😏 — Getting warmer...",
+      "🧱 — Not bad, but add another brick.",
+      "🐤 — Harder to crack… still possible.",
+      "🤔 — You’re making them work.",
+      "🔒 — Door locked… kinda.",
+      "😐 — Better, but not bulletproof.",
+      "🤓 — Some effort needed.",
+      "🪵 — A bit more solid.",
+      "👍 — You're getting there.",
+      "⚠️ — Proceed with caution.",
+      "🐢 — Steady protection.",
+      "🚪 — Door half closed.",
+      "🛡️ — Some protection.",
+      "🍞 — A bit tougher.",
+      "😐 — Security awake.",
+    ];
+    const mediumRandomPassword =
+      mediumPassword[Math.floor(Math.random() * mediumPassword.length)];
+    strengthLabelText = mediumRandomPassword;
+  } else {
+    // Strong Password
+    strengthBgColor = "rgba(179, 255, 0, 0.08)";
+    const strongPassword = [
+      "🔐 — Fort Knox just took notes.",
+      "🔐 — Now we're talking.",
+      "🏰 — Built like a fortress.",
+      "🦅 — Uncrackable beast.",
+      "😎 — Hackers gave up.",
+      "🔐 — Vault secured.",
+      "🔐 — Mission impossible.",
+      "🧠 — Big brain security.",
+      "🪨 — Rock solid.",
+      "🔥 — Unbreakable.",
+      "✅ — You're safe.",
+      "🦍 — Beast mode security.",
+      "🏦 — Bank vault level.",
+      "🛡️⚔️ — Fully armored.",
+      "🥖 — Hard to break.",
+      "😎 — Security on duty.",
+    ];
+    const strongRandomPassword =
+      strongPassword[Math.floor(Math.random() * strongPassword.length)];
+    strengthLabelText = strongRandomPassword;
+  }
+
+  strengthColor.style.backgroundColor = strengthBgColor;
+  strengthLabel.textContent = strengthLabelText;
 }
 
 function createRandomPassword(
@@ -74,3 +177,5 @@ function createRandomPassword(
 
   return password;
 }
+
+// Copy to clipboard

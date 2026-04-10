@@ -17,8 +17,8 @@
   <body>
     <main>
       <div class="container">
-        <div>
-          <h1>Password Generator</h1>
+        <div class="title-container">
+          <h1>🎲 Password Generator 🎲</h1>
           <p>Generate strong unique passwords</p>
         </div>
 
@@ -46,21 +46,15 @@
 
         <!-- Password Strength -->
         <div class="strength-container">
-          <p>
-            Strenght - <span id="strenght-label">Moderate</span>: Not bad, but
-            not Fort Knox either
-          </p>
-          <div class="strength-meter">
-            <div class="strength-bar"></div>
-          </div>
+          <h3 id="strength-label">How strong is my password?</h3>
         </div>
 
         <!-- Other Input Options  -->
         <div class="options">
           <!-- Slider Password Length -->
           <div class="options">
-            <div>
-              <label for="length">Password lenght: </label>
+            <div class="pass-length">
+              <label for="length">Password length: </label>
               <span id="length-value">12</span>
             </div>
             <input
@@ -75,7 +69,7 @@
 
           <!-- Include Uppercase Letters -->
           <div class="option">
-            <p>Include Uppercase Letters</p>
+            <p>🔠 - Include Uppercase Letters</p>
             <label class="switch">
               <input type="checkbox" id="uppercase" />
               <span class="slider round"></span>
@@ -84,16 +78,16 @@
 
           <!-- Include Lowercase Letters -->
           <div class="option">
-            <p>Include Lowercase Letters</p>
+            <p>🔡 - Include Lowercase Letters</p>
             <label class="switch">
-              <input type="checkbox" id="lowercase" />
+              <input type="checkbox" id="lowercase" checked />
               <span class="slider round"></span>
             </label>
           </div>
 
           <!-- Include Numbers -->
           <div class="option">
-            <p>Include Numbers</p>
+            <p>🔢 - Include Numbers</p>
             <label class="switch">
               <input type="checkbox" id="numbers" />
               <span class="slider round"></span>
@@ -102,7 +96,7 @@
 
           <!-- Include Symbols -->
           <div class="option">
-            <p>Include Symbols</p>
+            <p>🔣 - Include Symbols</p>
             <label class="switch">
               <input type="checkbox" id="symbols" />
               <span class="slider round"></span>
