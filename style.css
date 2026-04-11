@@ -247,18 +247,19 @@ input[type="range"] {
 
 @media (max-width: 600px) {
   body {
-    padding: 10px;
+    padding: 0px;
   }
 
   .container {
-    width: 100%;
+    width: 98vw;
+    height: 98vh;
     max-width: 100%;
     padding: 20px;
     margin: 5px;
   }
 
   h1 {
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     text-align: center;
   }
 
@@ -312,6 +313,10 @@ input[type="range"] {
     flex-direction: row;
     justify-content: space-between;
     text-align: center;
+  }
+
+  .options {
+    margin-top: 15px;
   }
 
   .option p {
