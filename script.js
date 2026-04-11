@@ -8,7 +8,8 @@ const numbersCheckbox = document.getElementById("numbers");
 const symbolsCheckbox = document.getElementById("symbols");
 const generateButton = document.getElementById("generate-btn");
 const copyButton = document.getElementById("copy-btn");
-const strengthText = document.querySelector(".strength-container p");
+const copyButtonIcon = copyButton.querySelector("i");
+const alertContainer = document.querySelector(".alert-container");
 const strengthLabel = document.getElementById("strength-label");
 const strengthColor = document.querySelector(".password-container");
 
@@ -80,22 +81,22 @@ function updateStrengthMeter(password) {
     // Weak Password
     strengthBgColor = "rgba(255, 0, 0, 0.08)";
     const weakPassword = [
-      "😬 — Even my grandma could guess this.",
-      "😬 — That's barely a password.",
-      "🧻 — Paper-thin security.",
-      "🐣 — Easily cracked.",
-      "😅 — Hackers say thank you.",
-      "🚪 — Door wide open.",
-      "😬 — Hackers love this one.",
-      "🧠 — Zero brain required to guess.",
-      "🪶 — Light as a feather.",
-      "😅 — Try harder…",
-      "🚨 — Security risk detected.",
-      "🐌 — Slow security.",
-      "🪟 — Wide open window.",
-      "🎯 — Easy target.",
-      "🍪 — Easy to crumble.",
-      "😴 — Security sleeping.",
+      "😬 Even my grandma could guess this.",
+      "😬 That's barely a password.",
+      "🧻 Paper-thin security.",
+      "🐣 Easily cracked.",
+      "😅 Hackers say thank you.",
+      "🚪 Door wide open.",
+      "😬 Hackers love this one.",
+      "🧠 Zero brain required to guess.",
+      "🪶 Light as a feather.",
+      "😅 Try harder…",
+      "🚨 Security risk detected.",
+      "🐌 Slow security.",
+      "🪟 Wide open window.",
+      "🎯 Easy target.",
+      "🍪 Easy to crumble.",
+      "😴 Security sleeping.",
     ];
     const weakRandomIndex =
       crypto.getRandomValues(new Uint32Array(1))[0] % weakPassword.length;
@@ -104,22 +105,22 @@ function updateStrengthMeter(password) {
     // Medium Password
     strengthBgColor = "rgba(255, 174, 0, 0.08)";
     const mediumPassword = [
-      "😏 — Better… but still snackable.",
-      "😏 — Getting warmer...",
-      "🧱 — Not bad, but add another brick.",
-      "🐤 — Harder to crack… still possible.",
-      "🤔 — You’re making them work.",
-      "🔒 — Door locked… kinda.",
-      "😐 — Better, but not bulletproof.",
-      "🤓 — Some effort needed.",
-      "🪵 — A bit more solid.",
-      "👍 — You're getting there.",
-      "⚠️ — Proceed with caution.",
-      "🐢 — Steady protection.",
-      "🚪 — Door half closed.",
-      "🛡️ — Some protection.",
-      "🍞 — A bit tougher.",
-      "😐 — Security awake.",
+      "😏 Better… but still snackable.",
+      "😏 Getting warmer...",
+      "🧱 Not bad, but add another brick.",
+      "🐤 Harder to crack… still possible.",
+      "🤔 You’re making them work.",
+      "🔒 Door locked… kinda.",
+      "😐 Better, but not bulletproof.",
+      "🤓 Some effort needed.",
+      "🪵 A bit more solid.",
+      "👍 You're getting there.",
+      "⚠️ Proceed with caution.",
+      "🐢 Steady protection.",
+      "🚪 Door half closed.",
+      "🛡️ Some protection.",
+      "🍞 A bit tougher.",
+      "😐 Security awake.",
     ];
     const mediumRandomIndex =
       crypto.getRandomValues(new Uint32Array(1))[0] % mediumPassword.length;
@@ -128,22 +129,22 @@ function updateStrengthMeter(password) {
     // Strong Password
     strengthBgColor = "rgba(179, 255, 0, 0.08)";
     const strongPassword = [
-      "🔐 — Fort Knox just took notes.",
-      "🔐 — Now we're talking.",
-      "🏰 — Built like a fortress.",
-      "🦅 — Uncrackable beast.",
-      "😎 — Hackers gave up.",
-      "🔐 — Vault secured.",
-      "🔐 — Mission impossible.",
-      "🧠 — Big brain security.",
-      "🪨 — Rock solid.",
-      "🔥 — Unbreakable.",
-      "✅ — You're safe.",
-      "🦍 — Beast mode security.",
-      "🏦 — Bank vault level.",
-      "🛡️⚔️ — Fully armored.",
-      "🥖 — Hard to break.",
-      "😎 — Security on duty.",
+      "🔐 Fort Knox just took notes.",
+      "🔐 Now we're talking.",
+      "🏰 Built like a fortress.",
+      "🦅 Uncrackable beast.",
+      "😎 Hackers gave up.",
+      "🔐 Vault secured.",
+      "🔐 Mission impossible.",
+      "🧠 Big brain security.",
+      "🪨 Rock solid.",
+      "🔥 Unbreakable.",
+      "✅ You're safe.",
+      "🦍 Beast mode security.",
+      "🏦 Bank vault level.",
+      "🛡️⚔️ Fully armored.",
+      "🥖 Hard to break.",
+      "😎 Security on duty.",
     ];
     const strongRandomIndex =
       crypto.getRandomValues(new Uint32Array(1))[0] % strongPassword.length;
@@ -215,13 +216,16 @@ copyButton.addEventListener("click", () => {
 });
 
 function showCopySuccess() {
-  copyButton.classList.remove("far", "fa-copy");
-  copyButton.classList.add("fas", "fa-check");
+  copyButtonIcon.classList.remove("far", "fa-copy");
+  copyButtonIcon.classList.add("fas", "fa-check");
   copyButton.style.color = "white";
 
+  alertContainer.classList.add("active");
+
   setTimeout(() => {
-    copyButton.classList.remove("fas", "fa-check");
-    copyButton.classList.add("far", "fa-copy");
+    copyButtonIcon.classList.remove("fas", "fa-check");
+    copyButtonIcon.classList.add("far", "fa-copy");
     copyButton.style.color = "";
+    alertContainer.classList.remove("active");
   }, 1500);
 }
